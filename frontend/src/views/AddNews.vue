@@ -2,7 +2,7 @@
   <div>
       <b-container>
     <b-row align-h="center" align-v="center">
-        <b-col lg="4">
+        <b-col lg="4" col-centered>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group
         id="input-group-1"

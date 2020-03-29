@@ -20,5 +20,44 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+
+  color: $primary;
+
 }
+
+.navbar {
+  margin-bottom: 30px;
+}
+
+.btn.btn-primary.btn-block{
+  background-color: $secondary;
+  border-color: $secondary;
+}
+.pagination ul {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination li {
+  display: inline;
+}
+
+.pagination li button {
+  color: $primary;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: $primary;
+  color: white;
+  border-color: $primary;
+}
+
+.pagination li:hover:not(.active) a {
+  background-color: #ddd;
+}
+
 </style>

@@ -15,3 +15,8 @@ class News(models.Model):
     source = models.URLField(max_length=200, default='http://google.com')
     proof = models.ImageField(default='default_proof.jpg', upload_to=scramble_uploaded_filename)
 
+class NewsVote(models.Model):
+    ip_address = models.GenericIPAddressField()
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='news_vote')
+    choice = models.BooleanField() # 1 Real, 0 Fake
+

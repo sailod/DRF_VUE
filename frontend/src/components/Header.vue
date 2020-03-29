@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info" class="py-4">
       <b-container>
-        <b-navbar-brand to="/">NavBar</b-navbar-brand>
+        <b-navbar-brand to="/">FakeOrReal</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
