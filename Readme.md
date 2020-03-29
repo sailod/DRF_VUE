@@ -1,0 +1,1 @@
+Djang with Vue project
