@@ -59,5 +59,29 @@ export default {
 .pagination li:hover:not(.active) a {
   background-color: #ddd;
 }
+button a:hover {
+    text-decoration: none;
+    color:white ;
 
+}
+button a{
+    color:white ;
+}
+
+article.card{
+  height:518px;
+}
+
+// .card-text {
+//   min-height: 200px;
+// }
+.card-img-top{
+  height: 100px;
+}
+.card-title {
+height: 80px;
+}
+div .card-text{
+  height: 190px;
+}
 </style>

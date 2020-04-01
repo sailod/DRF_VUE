@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from .models import News,NewsVote
-from .serializers import NewsSerializer
+from .serializers import NewsSerializer, NewsVoteSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import authentication
@@ -9,6 +9,12 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import FormParser, MultiPartParser,JSONParser
 from django.views.decorators.http import require_http_methods
 from django.views.generic import ListView
+from rest_framework.views import APIView
+from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
+from django.db.models import Count
+import os
+from django.test import TestCase
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 9
@@ -31,15 +37,40 @@ class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
 		instance.proof.delete(save=True)
 		return super().perform_destroy(instance)
 
-class NewsVoteCreate(generics.ListCreateAPIView):	
+class NewsVoteCreate(generics.CreateAPIView):	
 	http_method_names=['post']
 	authentication_classes = (authentication.TokenAuthentication,)
 	permission_classes = (IsAuthenticated,)
 	queryset = NewsVote.objects.all()
-	serializer_class = NewsSerializer
+	serializer_class = NewsVoteSerializer
 
-class NewsVotesList(ListView):
-	authentication_classes = (authentication.TokenAuthentication,)
-	permission_classes = (IsAuthenticated,)
-	def get_queryset(self, news_id):
-		return NewsVote.objects.filter(news=self.kwargs['news_id']).values(NewsVote.choice).annotate(total_votes=Count('choice'))
+	def create(self, request, *args, **kwargs):
+		self.request.data.update({'ip_address': extract_ip(request)  })
+		return super(NewsVoteCreate,self).create(request, *args, **kwargs)
+
+
+class NewsVotesCount(APIView):
+	renderer_classes = (JSONRenderer, )
+
+	def get(self, request, news_id):
+		#self.request.query_params.get('news_id')
+		votes_counts = NewsVote.objects.filter(news_id=news_id).values('choice').annotate(total_votes=Count('choice'))
+		voted = NewsVote.objects.filter(news_id=news_id).filter(ip_address=extract_ip(request)).exists()
+		res = {'already_voted': voted}
+		if(len(votes_counts) > 1):
+			res[votes_counts[0]['choice']] = votes_counts[0]['total_votes']
+			res[votes_counts[1]['choice']] = votes_counts[1]['total_votes']
+		elif(len(votes_counts) > 0):
+			res[votes_counts[0]['choice']] = votes_counts[0]['total_votes']
+			res[('false' if votes_counts[0]['choice'] else 'true')] = 0 
+		else:
+			res['true'] = 0
+			res['false'] = 0
+		return Response(res)
+
+def extract_ip(request):
+	x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+	if x_forwarded_for:
+		return x_forwarded_for.split(',')[0]
+	else:
+		return request.META.get('REMOTE_ADDR')

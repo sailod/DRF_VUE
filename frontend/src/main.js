@@ -17,6 +17,8 @@ Vue.use(IconsPlugin)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.prototype.$http = axios
+// this.$http.defaults.xsrfCookieName = 'csrftoken'
+// this.$http.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 Vue.config.productionTip = false
 
