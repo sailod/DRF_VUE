@@ -121,7 +121,7 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           self.already_voted = response.data.already_voted
           self.percentages = (response.data.true / (response.data.false + response.data.true)) * 100
         })

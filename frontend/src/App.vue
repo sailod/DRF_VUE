@@ -10,7 +10,18 @@ import Header from '@/components/Header.vue'
 
 export default {
   name: 'app',
-  components: { Header }
+  components: { Header },
+  created: function () {
+    const self = this
+    this.$http.interceptors.response.use(undefined, function (err) {
+      return new Promise(function (resolve, reject) {
+        if ((err.response.status === 400 || err.response.status === 401) && err.config && !err.config.__isRetryRequest) {
+          self.$store.dispatch('logout')
+        }
+        throw err
+      })
+    })
+  }
 }
 </script>
 

@@ -5,6 +5,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import router from './router/index'
+import store from './store/index'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTimes, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
@@ -22,7 +23,13 @@ Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
 
+const token = localStorage.getItem('token')
+if (token) {
+  Vue.prototype.$http.defaults.headers.common.Authorization = token
+}
+
 new Vue({
+  store,
   router,
   render: h => h(App)
 }).$mount('#app')

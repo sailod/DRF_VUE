@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <b-container fluid>
+    <b-container>
       <div v-if="articles">
-        <b-row align-h="center" row-centered>
+        <b-row  cols="3" align-h="center" row-centered>
             <Article :title="article.title" percentages_prop="50" :proof="article.proof" :source="article.source" :content="article.content" :id="article.id" v-for="article in articles.results" :key="article.id"></Article>
         </b-row>
       </div>
@@ -43,11 +43,7 @@ export default {
     getArticles () {
       const self = this
       this.$http
-        .get(self.articles_api_url, {
-          headers: {
-            Authorization: 'Token  2f747bdb64d4a02cacf3ee428529fbf63509da8b'
-          }
-        })
+        .get(self.articles_api_url)
         .then(response => {
           self.articles = response.data
         })

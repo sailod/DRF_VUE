@@ -17,18 +17,21 @@
               <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
             </b-nav-form>
 
-            <b-nav-item to="/add-news" >Add News</b-nav-item>
+            <b-nav-item to="/add-news" v-if="isLoggedIn">Add News</b-nav-item>
             <b-nav-item to="/">Home</b-nav-item>
             <b-nav-item to="/about" >About</b-nav-item>
 
-            <b-nav-item-dropdown right>
+            <b-nav-item-dropdown v-if="isLoggedIn" right>
               <!-- Using 'button-content' slot -->
               <template v-slot:button-content>
                 <em>User</em>
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+              <b-dropdown-item href="#" @click="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
+
+            <b-nav-item to="/login" v-else>Login</b-nav-item>
+
           </b-navbar-nav>
         </b-collapse>
       </b-container>
@@ -37,7 +40,19 @@
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    isLoggedIn: function () { return this.$store.getters.isLoggedIn }
+  },
+  methods: {
+    logout: function () {
+      this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/login')
+        })
+    }
+  }
+}
 </script>
 
 <style>

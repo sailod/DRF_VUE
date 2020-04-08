@@ -21,7 +21,12 @@ class StandardResultsSetPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 1000
 
-class NewsList(generics.ListCreateAPIView):
+class NewsList(generics.ListAPIView):
+	queryset = News.objects.all()
+	serializer_class = NewsSerializer
+	pagination_class = StandardResultsSetPagination
+
+class NewsCreate(generics.CreateAPIView):
 	authentication_classes = (authentication.TokenAuthentication,)
 	permission_classes = (IsAuthenticated,)
 	queryset = News.objects.all()
