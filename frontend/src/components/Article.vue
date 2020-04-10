@@ -96,7 +96,7 @@ export default {
       console.log('clicked')
       const self = this
       this.$http
-        .post('http://172.17.0.6:8000/api/news-vote/', { choice: vote, news: this.id }, {
+        .post(this.$api_endpoint.concat('/news-vote/'), { choice: vote, news: this.id }, {
           headers: {
             Authorization: 'Token  2f747bdb64d4a02cacf3ee428529fbf63509da8b'
           }
@@ -115,7 +115,7 @@ export default {
       //   self.percentages = self.percentages_prop
       // }, 600)
       this.$http
-        .get('http://172.17.0.6:8000/api/news-vote/' + this.id + '/', {
+        .get(this.$api_endpoint.concat('/news-vote/') + this.id + '/', {
           headers: {
             Authorization: 'Token  2f747bdb64d4a02cacf3ee428529fbf63509da8b'
           }

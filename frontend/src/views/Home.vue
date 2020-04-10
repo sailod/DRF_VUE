@@ -35,7 +35,7 @@ export default {
   components: { Article },
   computed: {
     articles_api_url: function () {
-      return 'http://172.17.0.6:8000/api/news/?page='.concat(this.currentPage)
+      return this.$api_endpoint.concat('/news/?page=').concat(this.currentPage)
     }
 
   },
