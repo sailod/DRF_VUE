@@ -2,8 +2,11 @@
   <div class="home">
     <b-container>
       <div v-if="articles">
-        <b-row  cols="3" align-h="center" row-centered>
-            <Article :title="article.title" percentages_prop="50" :proof="article.proof" :source="article.source" :content="article.content" :id="article.id" v-for="article in articles.results" :key="article.id"></Article>
+        <b-row  align-h="center" row-centered>
+                                   <b-col cols="4" mb="2" v-for="article in articles.results" :key="article.id">
+
+            <Article :title="article.title" percentages_prop="50" :proof="article.proof" :source="article.source" :content="article.content" :id="article.id"  ></Article>    </b-col>
+
         </b-row>
       </div>
       <b-pagination class="pagination-buttons" align="center" v-model="currentPage" :total-rows="articles.count" :per-page="perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last" ></b-pagination>

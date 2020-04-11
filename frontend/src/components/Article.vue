@@ -1,7 +1,5 @@
 <template>
   <div>
-<!--               <b-col l="4">
- -->                            <b-col l="4" mb="2">
 
       <b-card
         :title="title"
@@ -70,7 +68,6 @@
         </b-row>
       </template>
       </b-card>
-    </b-col>
   </div>
 </template>
 
