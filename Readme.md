@@ -1,1 +1,1 @@
-Djang with Vue project
+Voting system made with Django Rest Framework and Vue.js
