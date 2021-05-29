@@ -25,7 +25,7 @@ SECRET_KEY = 'hzq1n8j!2_wqvw(euxkw7(!@*tcn81+nd@cols8&tz61qp-xss'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.17.0.3']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -61,9 +61,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://172.17.0.3:8080',
-]
+CORS_ORIGIN_WHITELIST = ( 'http://localhost:8080', )
 
 ROOT_URLCONF = 'backend_api.urls'
 

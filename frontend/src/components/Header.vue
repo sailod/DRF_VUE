@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info" class="py-4">
+    <b-navbar toggleable="lg" type="dark" class="py-4">
       <b-container>
         <b-navbar-brand to="/">FakeOrReal</b-navbar-brand>
 

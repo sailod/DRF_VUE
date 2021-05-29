@@ -1,5 +1,5 @@
 <template>
-  <div class="footer py-3 bg-info">
+  <div class="footer py-3">
       <b-container>
         Footer
       </b-container>

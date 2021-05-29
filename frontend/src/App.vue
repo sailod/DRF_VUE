@@ -40,6 +40,12 @@ export default {
 
 .navbar {
   margin-bottom: 30px;
+  background-color: $secondary;
+}
+
+.footer {
+  background-color: $secondary;
+  color: $tertiary;
 }
 
 .btn.btn-primary.btn-block{

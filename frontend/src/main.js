@@ -18,7 +18,7 @@ Vue.use(IconsPlugin)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.prototype.$http = axios
-Vue.prototype.$api_endpoint = 'http://172.17.0.3:8000/api'
+Vue.prototype.$api_endpoint = 'http://localhost:8000/api'
 
 // this.$http.defaults.xsrfCookieName = 'csrftoken'
 // this.$http.defaults.xsrfHeaderName = 'X-CSRFToken'

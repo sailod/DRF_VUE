@@ -32,9 +32,9 @@ export default new Vuex.Store({
     login ({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request')
-        console.log(user)
+        // console.log(user)
 
-        axios.post('http://172.17.0.6:8000/rest-auth/login/', user)
+        axios.post('http://localhost:8000/rest-auth/login/', user)
           .then(resp => {
             console.log(resp)
             const token = resp.data.key
@@ -45,8 +45,8 @@ export default new Vuex.Store({
             resolve(resp)
           })
           .catch(err => {
-            console.log('BREAKKKKKKKK2')
-
+            console.log('Error while login.')
+            console.log('process.env')
             commit('auth_error')
             localStorage.removeItem('token')
             reject(err)

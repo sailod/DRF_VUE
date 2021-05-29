@@ -8,7 +8,7 @@ module.exports = {
         data: `@import "@/styles/_variables.scss";`
       },
       // pass Less.js Options to less-loader
-      less:{
+      less: {
         // http://lesscss.org/usage/#less-options-strict-units `Global Variables`
         // `primary` is global variables fields name
         globalVars: {
@@ -16,5 +16,9 @@ module.exports = {
         }
       }
     }
+  },
+  configureWebpack: {
+    devtool: 'source-map'
   }
+
 }

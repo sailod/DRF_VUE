@@ -1,3 +1,7 @@
 node_modules/
 venv/
 backend_api/media/
+*.pyc
+backend_api/.vscode/
+.vscode/settings.json
+media/
