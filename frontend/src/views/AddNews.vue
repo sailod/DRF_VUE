@@ -87,7 +87,7 @@ export default {
       formData.append('source', 'http://test.co.il')
       formData.append('author', 2)
       this.$http
-        .post('http://172.17.0.6:8000/api/news/create/',
+        .post(this.$api_endpoint.concat('/news/create/'),
           formData,
           {
             headers: {

@@ -5,3 +5,4 @@ backend_api/media/
 backend_api/.vscode/
 .vscode/settings.json
 media/
+backend_api/db.sqlite3

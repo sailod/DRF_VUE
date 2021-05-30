@@ -43,6 +43,10 @@ export default {
   background-color: $secondary;
 }
 
+.footer-container {
+  margin-top: 1.5rem;
+}
+
 .footer {
   background-color: $secondary;
   color: $tertiary;

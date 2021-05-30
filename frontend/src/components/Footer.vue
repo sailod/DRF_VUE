@@ -1,5 +1,5 @@
 <template>
-  <div class="footer py-3">
+  <div class="footer py-3 footer-container">
       <b-container>
         Footer
       </b-container>
