@@ -1,6 +1,8 @@
 # Voting system made with Django Rest Framework and Vue.js
 
 ## Django Administrator User
+in case you want to use preconfigured DB with data:  
+git show 402f023b14e9177d238811a6308824ce61fee182:backend_api/db.sqlite3 > backend_api/db.sqlite3
 username: admin  
 password: x5t47pYj
 
