@@ -91,7 +91,7 @@ export default {
           formData,
           {
             headers: {
-              Authorization: 'Token  2f747bdb64d4a02cacf3ee428529fbf63509da8b'
+              // Authorization: 'Token  2f747bdb64d4a02cacf3ee428529fbf63509da8b'
             }
           }
         ).then(function () {

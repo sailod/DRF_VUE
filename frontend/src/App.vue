@@ -56,6 +56,15 @@ export default {
   background-color: $secondary;
   border-color: $secondary;
 }
+
+.delete-news-btn{
+  z-index: 1;
+  position: absolute;
+  top: 1%;
+  right: 6%;
+  color: red;
+}
+
 .pagination ul {
   display: inline-block;
   padding: 0;

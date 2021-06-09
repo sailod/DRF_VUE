@@ -1,6 +1,5 @@
 <template>
   <div>
-
       <b-card
         :title="title"
         footer-tag="footer"
@@ -94,9 +93,7 @@ export default {
       const self = this
       this.$http
         .post(this.$api_endpoint.concat('/news-vote/'), { choice: vote, news: this.id }, {
-          headers: {
-            Authorization: 'Token  2f747bdb64d4a02cacf3ee428529fbf63509da8b'
-          }
+
         })
         .then(response => {
           self.already_voted = 1
@@ -114,7 +111,7 @@ export default {
       this.$http
         .get(this.$api_endpoint.concat('/news-vote/') + this.id + '/', {
           headers: {
-            Authorization: 'Token  2f747bdb64d4a02cacf3ee428529fbf63509da8b'
+            // Authorization: 'Token  2f747bdb64d4a02cacf3ee428529fbf63509da8b'
           }
         })
         .then(response => {

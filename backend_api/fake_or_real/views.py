@@ -5,6 +5,7 @@ from .serializers import NewsSerializer, NewsVoteSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import authentication
+from rest_framework_simplejwt import authentication as simplejwt_authentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import FormParser, MultiPartParser,JSONParser
 from django.views.decorators.http import require_http_methods
@@ -27,14 +28,14 @@ class NewsList(generics.ListAPIView):
 	pagination_class = StandardResultsSetPagination
 
 class NewsCreate(generics.CreateAPIView):
-	authentication_classes = (authentication.TokenAuthentication,)
+	authentication_classes = (simplejwt_authentication.JWTAuthentication,)
 	permission_classes = (IsAuthenticated,)
 	queryset = News.objects.all()
 	serializer_class = NewsSerializer
 	pagination_class = StandardResultsSetPagination
 
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
-	authentication_classes = (authentication.TokenAuthentication,)
+	authentication_classes = (simplejwt_authentication.JWTAuthentication,)
 	permission_classes = (IsAuthenticated,)
 	queryset = News.objects.all()
 	serializer_class = NewsSerializer
@@ -44,7 +45,7 @@ class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class NewsVoteCreate(generics.CreateAPIView):	
 	http_method_names=['post']
-	authentication_classes = (authentication.TokenAuthentication,)
+	authentication_classes = (simplejwt_authentication.JWTAuthentication,)
 	permission_classes = (IsAuthenticated,)
 	queryset = NewsVote.objects.all()
 	serializer_class = NewsVoteSerializer

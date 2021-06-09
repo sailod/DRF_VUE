@@ -1,6 +1,6 @@
 FROM python:3.9
 WORKDIR /app
-COPY ./django-requirements.txt /app/
+COPY ./backend_api/django-requirements.txt /app/
 RUN apt-get update && apt-get -y install nginx
 RUN service nginx stop
 RUN update-rc.d -f nginx remove
