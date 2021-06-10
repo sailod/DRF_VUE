@@ -30,6 +30,14 @@ if (token) {
   Vue.prototype.$http.defaults.headers.common.Authorization = 'JWT ' + token
 }
 
+Vue.mixin({
+  computed: {
+    isLoggedIn: function () {
+      return this.$store.getters.isLoggedIn
+    }
+  }
+})
+
 new Vue({
   store,
   router,

@@ -4,7 +4,7 @@
       <div v-if="articles">
         <b-row  align-h="center" row-centered>
           <b-col cols="4" mb="2" v-for="article in articles" :key="article.id">
-            <div class="delete-news-btn" @click="deleteArticle(article.id)">
+            <div class="delete-news-btn" v-if="isLoggedIn" @click="deleteArticle(article.id)">
               <b-icon icon="trash-fill"></b-icon>
             </div>
             <Article :title="article.title" percentages_prop="50" :proof="article.proof" :source="article.source" :content="article.content" :id="article.id"  ></Article>
