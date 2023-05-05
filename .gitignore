@@ -6,3 +6,4 @@ backend_api/.vscode/
 .vscode/settings.json
 media/
 backend_api/db.sqlite3
+backend_api/firebase_key.json

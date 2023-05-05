@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import { apiEndpoint } from '@/main.js'
 
 Vue.use(Vuex)
 
@@ -11,30 +12,28 @@ export default new Vuex.Store({
     user: {}
   },
   mutations: {
-    auth_request (state) {
+    auth_request(state) {
       state.status = 'loading'
     },
-    auth_success (state, token, user) {
+    auth_success(state, token, user) {
       state.status = 'success'
       state.token = token
       state.user = user
     },
-    auth_error (state) {
+    auth_error(state) {
       state.status = 'error'
     },
-    logout (state) {
+    logout(state) {
       state.status = ''
       state.token = ''
     }
 
   },
   actions: {
-    login ({ commit }, user) {
+    login({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request')
-        // console.log(user)
-
-        axios.post('http://localhost:8000/auth/jwt/create/', user)
+        axios.post(apiEndpoint + '/auth/jwt/create/', user)
           .then(resp => {
             console.log(this)
             const token = resp.data.access
@@ -47,14 +46,13 @@ export default new Vuex.Store({
           })
           .catch(err => {
             console.log('Error while login.')
-            console.log('process.env')
             commit('auth_error')
             localStorage.removeItem('token')
             reject(err)
           })
       })
     },
-    logout ({ commit }) {
+    logout({ commit }) {
       return new Promise((resolve, reject) => {
         commit('logout')
         localStorage.removeItem('token')

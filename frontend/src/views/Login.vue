@@ -18,7 +18,11 @@
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group id="input-group-2" label="Password:" label-for="input-2">
+            <b-form-group
+              id="input-group-2"
+              label="Password:"
+              label-for="input-2"
+            >
               <b-form-input
                 id="input-2"
                 type="password"
@@ -30,16 +34,34 @@
 
             <b-button type="submit" variant="primary">Login</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
+            <b-button
+              @click.prevent="googleSignIn"
+              type="submit"
+              variant="success"
+              >Google</b-button
+            >
+
           </b-form>
         </b-col>
       </b-row>
     </b-container>
   </div>
 </template>
-
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+
+const provider = new GoogleAuthProvider({
+  apiKey: 'AIzaSyCCJeE9feN0TxnrIBld9A29WqOtDjoP3Ck',
+  authDomain: 'test-a9062.firebaseapp.com',
+  projectId: 'test-a9062',
+  storageBucket: 'test-a9062.appspot.com',
+  messagingSenderId: '354221965650',
+  appId: '1:354221965650:web:35e308a03a786c3220ba8b',
+  measurementId: 'G-0B73JTFGVW'
+})
 export default {
-  data () {
+  data() {
     return {
       form: {
         username: '',
@@ -48,15 +70,42 @@ export default {
       show: true
     }
   },
+  mounted() {},
   methods: {
+    googleSignIn() {
+      signInWithPopup(getAuth(this.$google), provider)
+        .then(async (result) => {
+          // The signed-in user info.
+          const user = result.user
+          const token = await user.getIdToken(true)
+          debugger
+          this.$http.defaults.headers.common.Authorization = `Bearer ${token}`
+        })
+        .catch((error) => {
+          debugger
+          // Handle Errors here.
+          const errorCode = error.code
+          const errorMessage = error.message
+          // The email of the user's account used.
+          const email = error.customData.email
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error)
+          console.log(
+            errorCode + ' ' + errorMessage + ' ' + email + ' ' + credential
+          )
+
+          // ...
+        })
+    },
     login: function () {
       const username = this.form.username
       const password = this.form.password
-      this.$store.dispatch('login', { username, password })
+      this.$store
+        .dispatch('login', { username, password })
         .then(() => this.$router.push('/'))
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     },
-    onReset (evt) {
+    onReset(evt) {
       evt.preventDefault()
       // Reset our form values
       this.form.username = ''
