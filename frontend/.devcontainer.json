@@ -1,0 +1,17 @@
+{
+	"name": "Front Dev Container",
+	"dockerComposeFile": [
+		"../docker-compose.yaml"
+	],
+	"service": "frontend",
+	"shutdownAction": "none",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"Vue.volar"
+			]
+		}
+	},
+	// Open the sub-folder with the source code
+	"workspaceFolder": "/workspace/frontend"
+}

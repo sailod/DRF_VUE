@@ -1,0 +1,14 @@
+{
+	"name": "Back Dev Container",
+	"dockerComposeFile": ["../docker-compose.yaml"],
+	"service": "backend",
+	"shutdownAction": "none",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python"
+			]
+		}
+	},
+	"workspaceFolder": "/workspace/backend_api"
+  }
