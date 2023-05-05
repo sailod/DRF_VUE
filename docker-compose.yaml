@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - '8085:8085'
+    depends_on:
+      - backend
+    environment:
+      - VUE_APP_API_URL=http://localhost:8181/api
+    volumes:
+          - .:/workspace
+  backend:
+    build: ./backend_api
+    ports:
+      - '8181:8181'
+    volumes:
+          - .:/workspace
+    environment:
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
