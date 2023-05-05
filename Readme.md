@@ -4,6 +4,8 @@ This repository can be used as boilerplate for fullstack application written in 
 This application has example of all CRUD operations, Authentication (using username and password),  
 Authorization (any object can be edited only by its creator), and IP based protection to limit each user for only one vote per subject
 
+This repo includes the best practices for running both the frontend and backend in production
+
 ## Django Administrator User
 in case you want to use preconfigured DB with data:  
 ```
