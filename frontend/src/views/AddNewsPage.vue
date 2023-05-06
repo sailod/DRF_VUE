@@ -98,7 +98,6 @@ export default {
       formData.append('content', this.form.content)
       formData.append('proof', this.form.file)
       formData.append('source', 'http://test.com')
-      formData.append('author', 2)
       this.httpWithAuth
         .post('/api/news/create/', formData)
         .then(() => {
