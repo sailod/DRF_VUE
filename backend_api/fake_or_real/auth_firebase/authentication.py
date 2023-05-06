@@ -5,6 +5,7 @@ import firebase_admin
 from firebase_admin import credentials, auth
 from django.conf import settings
 """SETUP FIREBASE CREDENTIALS"""
+import logging
 
 cred = credentials.Certificate('firebase_key.json')
 default_app = firebase_admin.initialize_app(cred)
@@ -22,7 +23,9 @@ class FirebaseAuthentication(BaseAuthentication):
                 try:
                         decoded_token = auth.verify_id_token(id_token)
                 except Exception as e:
-                        raise exceptions.InvalidAuthToken("Invalid auth token")
+                        print(f'Invalid firebase auth token: {e}')
+                        logging.getLogger().error(f'Invalid firebase auth token: {e}')
+                        return None
                 """Return Nothing"""
                 if not id_token or not decoded_token:
                         return None
