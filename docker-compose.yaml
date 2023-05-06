@@ -7,8 +7,8 @@ services:
       - '8085:8085'
     depends_on:
       - backend
-    environment:
-      - VUE_APP_API_URL=http://localhost:8181/api
+    # environment:
+    #   - VUE_APP_API_URL=http://localhost:8181/api
     volumes:
           - .:/workspace
   backend:
