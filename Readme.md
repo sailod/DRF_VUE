@@ -1,10 +1,12 @@
 # Voting system made with Django Rest Framework and Vue.js
 
 This repository can be used as boilerplate for fullstack application written in VueJS and Django,  
-This application has example of all CRUD operations, Authentication (using username and password),  
+This application has example of all CRUD operations, Authentication (using username/password or firebase),  
 Authorization (any object can be edited only by its creator), and IP based protection to limit each user for only one vote per subject
+Pagination
 
-This repo includes the best practices for running both the frontend and backend in production
+This repo includes the best practices for running both the frontend and backend in production,
+its running the API (Django Rest Framework) using Gunicorn and use Nginx as proxy to the wsgi and serving media and static files like stylesheets 
 
 ## Django Administrator User
 in case you want to use preconfigured DB with data:  

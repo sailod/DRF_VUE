@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <Menubar :model="items">
+    <Menubar :model="items" >
       <template #start>FakeOrReal</template>
     </Menubar>
   </div>
@@ -63,4 +63,8 @@ const items = computed(() => {
       ]
 })
 </script>
-<style></style>
+<style>
+.p-menubar .p-menubar-root-list {
+  margin-left: auto;
+}
+</style>
