@@ -22,6 +22,14 @@ export function createStore(router) {
         loading: false,
         token: localStorage.getItem('token') || '',
         user: {},
+        http: axios.create({
+          baseURL: process.env.VUE_APP_API_URL,
+          timeout: 1000,
+        }),
+        httpWithAuth: axios.create({
+          baseURL: process.env.VUE_APP_API_URL,
+          timeout: 1000,
+        }),
       }
     },
     mutations: {
@@ -30,6 +38,7 @@ export function createStore(router) {
         state.token = token
         state.user.email = email
         localStorage.setItem('token', token)
+        state.httpWithAuth.defaults.headers.common.Authorization = `JWT ${token}`
       },
       SET_LOADING(state, status) {
         state.loading = status
@@ -61,10 +70,10 @@ export function createStore(router) {
             )
           })
       },
-      logingUsingPassword({ commit, getters }, user) {
+      logingUsingPassword({ commit, getters, state }, user) {
         commit('SET_LOADING', true)
         this.dispatch('logout')
-        return getters.$http
+        return state.http
           .post(process.env.VUE_APP_API_URL + '/api/auth/jwt/create/', user)
           .then((resp) => {
             console.log(this)
@@ -87,14 +96,10 @@ export function createStore(router) {
     getters: {
       isLoggedIn: (state) => state.token,
       authStatus: (state) => state.status,
-      $http: (state, getters) => {
+      httpWithAuthToken: (state, getters) => {
         if (getters.isLoggedIn) {
           axios.defaults.headers.common.Authorization = 'JWT ' + state.token
         } else delete axios.defaults.headers.common.Authorization
-        return axios
-      },
-      $http_no_auth: (state, getters) => {
-        delete axios.defaults.headers.common.Authorization
         return axios
       },
     },
