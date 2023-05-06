@@ -12,5 +12,5 @@ python manage.py createsuperuser
 
 ## Run API in development mode
 ```
-python manage.py runserver 8181
+python manage.py runserver 0.0.0.0:8181
 ```

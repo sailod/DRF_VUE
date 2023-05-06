@@ -1,29 +1,18 @@
 <template>
   <div id="app">
-    <Header></Header>
-    <router-view />
-    <Footer></Footer>
+    <HeaderSection></HeaderSection>
+    <router-view/>
+    <FooterSection></FooterSection>
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
-import Footer from '@/components/Footer.vue'
+import HeaderSection from '@/components/HeaderSection.vue'
+import FooterSection from '@/components/FooterSection.vue'
 
 export default {
   name: 'app',
-  components: { Header, Footer },
-  created: function () {
-    const self = this
-    this.$http.interceptors.response.use(undefined, function (err) {
-      return new Promise(function (resolve, reject) {
-        if (!err.response || ((err.response.status === 400 || err.response.status === 401) && err.config && !err.config.__isRetryRequest)) {
-          self.$store.dispatch('logout')
-        }
-        throw err
-      })
-    })
-  }
+  components: { HeaderSection, FooterSection },
 }
 </script>
 
@@ -43,11 +32,11 @@ export default {
   background-color: $secondary;
 }
 
-.footer-container {
+.footerSection-container {
   margin-top: 1.5rem;
 }
 
-.footer {
+.footerSection {
   background-color: $secondary;
   color: $tertiary;
 }
