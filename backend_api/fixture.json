@@ -1,0 +1,92 @@
+[
+    {
+        "pk": 1,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is the earth flat?",
+            "content": "Do some people believe the earth is flat, or is that just a myth?",
+            "author": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is climate change real?",
+            "content": "Is the scientific consensus on climate change accurate, or is it a hoax?",
+            "author": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is social media addictive?",
+            "content": "Are people addicted to social media, or is it just a harmless form of entertainment?",
+            "author": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Should college be free?",
+            "content": "Should college education be free for all, or should it remain a privilege for those who can afford it?",
+            "author": 1
+        }
+    },
+    {
+        "pk": 5,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is artificial intelligence a threat to humanity?",
+            "content": "Is the development of artificial intelligence something to be feared, or is it just another tool to make life easier?",
+            "author": 1
+        }
+    },
+    {
+        "pk": 6,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Should the voting age be lowered to 16?",
+            "content": "Should 16-year-olds be allowed to vote in elections, or should the voting age remain at 18?",
+            "author": 1
+        }
+    },
+    {
+        "pk": 7,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is homeschooling effective?",
+            "content": "Is homeschooling a viable alternative to traditional education, or does it limit a child's social development?",
+            "author": 1
+        }
+    },
+    {
+        "pk": 8,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Should the death penalty be abolished?",
+            "content": "Is the death penalty an effective deterrent to crime, or is it an outdated and barbaric practice that should be abolished?",
+            "author": 1
+        }
+    },
+    {
+        "pk": 9,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is genetic engineering ethical?",
+            "content": "Is the genetic modification of humans and animals morally acceptable, or is it playing God?",
+            "author": 1
+        }
+    },
+    {
+        "pk": 10,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Should animal testing be banned?",
+            "content": "Is animal testing necessary for scientific research, or is it cruel and unnecessary?",
+            "author": 1
+        }
+    }
+]
