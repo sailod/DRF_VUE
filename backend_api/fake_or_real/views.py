@@ -17,7 +17,7 @@ from django.db.models import Count
 import os
 from django.test import TestCase
 from .auth_firebase.authentication import FirebaseAuthentication
-from .auth_firebase.permission import IsFirebaseAuthenticated
+from .auth_firebase.permission import IsFirebaseAuthenticated, IsOwner
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -33,10 +33,7 @@ class NewsList(generics.ListAPIView):
 
 
 class NewsCreate(generics.CreateAPIView):
-    authentication_classes = (
-        FirebaseAuthentication,
-        JWTAuthentication
-    )
+    authentication_classes = (FirebaseAuthentication, JWTAuthentication)
     permission_classes = (IsAuthenticated,)
     queryset = News.objects.all()
     serializer_class = NewsSerializer
@@ -46,9 +43,10 @@ class NewsCreate(generics.CreateAPIView):
     # def perform_create(self, serializer):
     #         serializer.save(author=self.request.user)
 
+
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
-    authentication_classes = (FirebaseAuthentication,)
-    permission_classes = (IsFirebaseAuthenticated,)
+    authentication_classes = (FirebaseAuthentication, JWTAuthentication)
+    permission_classes = (IsFirebaseAuthenticated, IsOwner)
     queryset = News.objects.all()
     serializer_class = NewsSerializer
 
@@ -58,6 +56,7 @@ class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class NewsVoteCreate(generics.CreateAPIView):
+    authentication_classes = (FirebaseAuthentication, JWTAuthentication)
     http_method_names = ["post"]
     queryset = NewsVote.objects.all()
     serializer_class = NewsVoteSerializer

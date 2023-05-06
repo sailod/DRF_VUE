@@ -8,6 +8,10 @@ Pagination
 This repo includes the best practices for running both the frontend and backend in production,
 its running the API (Django Rest Framework) using Gunicorn and use Nginx as proxy to the wsgi and serving media and static files like stylesheets 
 
+This platform works as follow:
+1. in order to create new poll you need to register and be logged in
+2. once you published poll everybody that logged in can vote for it but just single time (enforced via IP detection)
+3. only the publisher of the poll can delete it
 ## Django Administrator User
 in case you want to use preconfigured DB with data:  
 ```

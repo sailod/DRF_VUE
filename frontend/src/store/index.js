@@ -46,6 +46,7 @@ export function createStore(router) {
       LOGOUT(state) {
         state.loading = false
         state.token = ''
+        delete state.httpWithAuth.defaults.headers.common.Authorization
       },
     },
     actions: {
