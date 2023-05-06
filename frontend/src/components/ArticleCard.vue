@@ -96,7 +96,6 @@ export default {
   methods: {
     commitVote: function (vote) {
       const self = this
-      debugger
       console.log(this.$http.defaults.headers.common.Authorization)
       this.$http
         .post(
@@ -127,8 +126,6 @@ export default {
             100
         })
         .catch((error) => {
-          debugger
-
           console.log(error)
         })
     },

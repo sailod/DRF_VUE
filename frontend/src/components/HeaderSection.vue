@@ -27,7 +27,6 @@ const items = computed(function items() {
       to: '/about',
     },
   ]
-  debugger
   return store.getters.isLoggedIn
     ? [
         ...allUsersMenu,

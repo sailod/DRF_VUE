@@ -9,7 +9,6 @@
                 store
                   .dispatch('logingUsingPassword', form)
                   .then(() => {
-                    debugger
                     this.$router.replace({ path: '/' })
                   })
                   .catch((err) => (errorMessage = `User login failed: ${err}`))
@@ -56,7 +55,6 @@
                   store
                     .dispatch('loginUsingGoogle', form)
                     .then(() => {
-                      debugger
                       this.$router.replace({ path: '/' })
                     })
                     .catch(

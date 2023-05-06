@@ -62,7 +62,6 @@ export function createStore(router) {
           })
       },
       logingUsingPassword({ commit, getters }, user) {
-        debugger
         commit('SET_LOADING', true)
         this.dispatch('logout')
         return getters.$http
@@ -71,7 +70,6 @@ export function createStore(router) {
             console.log(this)
             const token = resp.data.access
             const user = resp.config.data.username
-            debugger
             commit('SET_LOADING', false)
             commit('SET_TOKEN', token, user)
           })
