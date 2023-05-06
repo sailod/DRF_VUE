@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-4">
     <Menubar :model="items">
       <template #start>FakeOrReal</template>
     </Menubar>
@@ -11,10 +11,12 @@ import Menubar from 'primevue/menubar'
 import { useStore } from 'vuex'
 
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 const store = useStore()
+const router = useRouter()
 
-const items = computed(function items() {
+const items = computed(() => {
   const allUsersMenu = [
     {
       label: 'Home',
@@ -37,12 +39,16 @@ const items = computed(function items() {
             {
               label: 'Logout',
               icon: 'pi pi-fw pi-align-left',
-              command: () => store.dispatch('logout'),
+              command: () => {
+                store
+                  .dispatch('logout')
+                  .then(() => router.replace({ path: '/' }))
+              },
             },
             {
               label: 'Add News',
               icon: 'pi pi-fw pi-align-left',
-              to: '/add-news'
+              to: '/add-news',
             },
           ],
         },

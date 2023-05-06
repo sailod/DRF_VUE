@@ -35,13 +35,17 @@
             <b-form-group id="input-group-3" label="Food:" label-for="input-3">
               <b-form-select
                 id="input-3"
-                v-model="form.food"
-                :options="foods"
+                v-model="form.severity"
+                :options="severities"
                 required
               ></b-form-select>
             </b-form-group>
 
-            <b-form-group id="input-group-4" label="Proof:" label-for="input-4">
+            <b-form-group
+              id="input-group-4"
+              label="Severity:"
+              label-for="input-4"
+            >
               <b-form-file
                 id="input-4"
                 v-model="form.file"
@@ -64,43 +68,42 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
       form: {
         title: '',
         content: '',
-        food: null,
+        severity: null,
         file: null,
         file2: null,
         error: null,
       },
-      foods: [
+      severities: [
         { text: 'Select One', value: null },
-        'Carrots',
-        'Beans',
-        'Tomatoes',
-        'Corn',
+        'Low',
+        'Medium',
+        'High',
       ],
       show: true,
     }
   },
-  computed: { ...mapGetters(['$http', '$http_no_auth']) },
+  computed: { ...mapState(['http', 'httpWithAuth', 'isLoggedIn']) },
   methods: {
-    handleFileUpload() {},
     onSubmit(evt) {
       evt.preventDefault()
       const formData = new FormData()
       formData.append('title', this.form.title)
       formData.append('content', this.form.content)
       formData.append('proof', this.form.file)
-      formData.append('source', 'http://test.co.il')
+      formData.append('source', 'http://test.com')
       formData.append('author', 2)
-      this.$http
-        .post(process.env.VUE_APP_API_URL.concat('/api/news/create/'), formData)
-        .then(function () {
+      this.httpWithAuth
+        .post('/api/news/create/', formData)
+        .then(() => {
           console.log('SUCCESS!!')
+          this.$router.push({ path: '/' })
         })
         .catch(function (err) {
           console.log(err)
@@ -113,7 +116,7 @@ export default {
       // Reset our form values
       this.form.title = ''
       this.form.content = ''
-      this.form.food = null
+      this.form.severity = null
       this.form.checked = []
       // Trick to reset/clear native browser form validation state
       this.show = false

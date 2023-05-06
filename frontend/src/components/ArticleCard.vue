@@ -10,15 +10,17 @@
       style="max-width: 21rem"
       class="mb-4"
     >
-      <div>
+      <div class="mb-2">
         <b-card-text>
           {{ content }}
         </b-card-text>
       </div>
-      <b-row id="article-button-row" align-v="end">
+      <b-row class="mb-2" id="article-button-row" align-v="end">
         <b-col>
-          <b-button block v-b-tooltip.hover title="Proof" variant="primary">
-            <b-link :href="proof">Proof</b-link></b-button
+          <b-link :href="proof"
+            ><b-button block v-b-tooltip.hover title="Proof" variant="primary">
+              Proof</b-button
+            ></b-link
           ></b-col
         >
         <b-col>
@@ -75,7 +77,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   props: ['title', 'content', 'id', 'percentages_prop', 'source', 'proof'],
   data() {
@@ -88,40 +90,30 @@ export default {
     this.fetchVotes()
   },
   computed: {
-    ...mapGetters(['$http', '$http_no_auth']),
+    ...mapState(['http', 'httpWithAuth', 'isLoggedIn']),
     tooltipId: function () {
       return 'progress-bar-' + this.id
     },
   },
   methods: {
-    commitVote: function (vote) {
-      const self = this
-      console.log(this.$http.defaults.headers.common.Authorization)
-      this.$http
-        .post(
-          process.env.VUE_APP_API_URL.concat('/api/news-vote/'),
-          { choice: vote, news: this.id },
-          {}
-        )
+    commitVote(vote) {
+      this.httpWithAuth
+        .post('/api/news-vote/', { choice: vote, news: this.id }, {})
         .then((response) => {
-          self.already_voted = 1
-          self.fetchVotes()
+          this.already_voted = 1
+          this.fetchVotes()
         })
         .catch((error) => {
           console.log(error)
         })
     },
-    fetchVotes: function () {
-      const self = this
-
-      const requestUrl = `${process.env.VUE_APP_API_URL}/api/news-vote/${this.id}/`
-
-      this.$http_no_auth
-        .get(requestUrl)
+    fetchVotes() {
+      this.http
+        .get(`/api/news-vote/${this.id}/`)
         .then((response) => {
           // console.log(response.data)
-          self.already_voted = response.data.already_voted
-          self.percentages =
+          this.already_voted = response.data.already_voted
+          this.percentages =
             (response.data.true / (response.data.false + response.data.true)) *
             100
         })

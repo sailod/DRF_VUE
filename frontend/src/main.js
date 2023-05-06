@@ -11,14 +11,14 @@ import {
   faTimes,
   faThumbsUp,
   faThumbsDown,
-  faUserSecret,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { initializeApp } from 'firebase/app'
 import PrimeVue from 'primevue/config'
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
 
-library.add(faTimes, faThumbsUp, faThumbsDown, faUserSecret)
+library.add(faTimes, faThumbsUp, faThumbsDown, faTrash)
 
 const store = createStore()
 const router = createRouter()

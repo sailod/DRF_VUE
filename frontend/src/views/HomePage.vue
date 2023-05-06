@@ -5,11 +5,11 @@
         <b-row align-h="center" row-centered>
           <b-col cols="4" mb="2" v-for="article in articles" :key="article.id">
             <div
-              class="delete-news-btn"
               v-if="isLoggedIn"
+              class="delete-news-btn"
               @click="deleteArticle(article.id)"
             >
-              <b-icon icon="trash-fill"></b-icon>
+              <font-awesome-icon icon="trash" />
             </div>
             <ArticleCard
               :title="article.title"
@@ -39,7 +39,7 @@
 <script>
 // @ is an alias to /src
 import ArticleCard from '@/components/ArticleCard.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'HomePage',
   components: { ArticleCard },
@@ -64,44 +64,38 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['$http', '$http_no_auth', 'isLoggedIn']),
-    articles_api_url: function () {
-      return process.env.VUE_APP_API_URL.concat('/api/news/?page=').concat(
-        this.currentPage
-      )
+    ...mapState(['http', 'httpWithAuth']),
+    ...mapGetters(['isLoggedIn']),
+    articlesApiUrl() {
+      return '/api/news/?page='.concat(this.currentPage)
     },
   },
   methods: {
     getArticles() {
-      const self = this
-      this.$http_no_auth
-        .get(
-          process.env.VUE_APP_API_URL.concat('/api/news/?page=').concat(
-            this.currentPage
-          )
-        )
+      this.http
+        .get(this.articlesApiUrl)
         .then((response) => {
-          self.articles = response.data
+          this.articles = response.data
           const obj = {}
 
           for (const key of response.data.results) {
             obj[key.id] = key
           }
-          self.articles = obj
-          self.articlesCount = response.data.count
+          this.articles = obj
+          this.articlesCount = response.data.count
         })
         .catch((error) => {
           console.log(error)
         })
-        .finally(() => (self.loading = false))
+        .finally(() => (this.loading = false))
     },
     deleteArticle(articleId) {
-      this.$http
-        .delete(
-          this.$api_endpoint.concat('/news/').concat(articleId).concat('/')
-        )
+      this.httpWithAuth
+        .delete(`/api/news/${articleId}`, {
+          withCredentials: true,
+        })
         .then((response) => {
-          this.$delete(this.articles, articleId)
+          this.getArticles()
         })
         .catch((error) => {
           console.log(error)
