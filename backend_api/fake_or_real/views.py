@@ -5,7 +5,7 @@ from .serializers import NewsSerializer, NewsVoteSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import authentication
-from rest_framework_simplejwt import authentication as simplejwt_authentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 from django.views.decorators.http import require_http_methods
@@ -35,12 +35,16 @@ class NewsList(generics.ListAPIView):
 class NewsCreate(generics.CreateAPIView):
     authentication_classes = (
         FirebaseAuthentication,
+        JWTAuthentication
     )
     permission_classes = (IsAuthenticated,)
     queryset = News.objects.all()
     serializer_class = NewsSerializer
     pagination_class = StandardResultsSetPagination
 
+    # Can be used to create more modifiactions to the News object before its saved
+    # def perform_create(self, serializer):
+    #         serializer.save(author=self.request.user)
 
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = (FirebaseAuthentication,)
