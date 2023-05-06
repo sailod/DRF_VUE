@@ -33,7 +33,9 @@ class NewsList(generics.ListAPIView):
 
 
 class NewsCreate(generics.CreateAPIView):
-    authentication_classes = (simplejwt_authentication.JWTAuthentication,)
+    authentication_classes = (
+        FirebaseAuthentication,
+    )
     permission_classes = (IsAuthenticated,)
     queryset = News.objects.all()
     serializer_class = NewsSerializer
@@ -41,7 +43,7 @@ class NewsCreate(generics.CreateAPIView):
 
 
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
-    authentication_classes = (simplejwt_authentication.JWTAuthentication,)
+    authentication_classes = (FirebaseAuthentication,)
     permission_classes = (IsFirebaseAuthenticated,)
     queryset = News.objects.all()
     serializer_class = NewsSerializer
@@ -53,8 +55,6 @@ class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class NewsVoteCreate(generics.CreateAPIView):
     http_method_names = ["post"]
-    authentication_classes = (FirebaseAuthentication,)
-    permission_classes = (IsFirebaseAuthenticated,)
     queryset = NewsVote.objects.all()
     serializer_class = NewsVoteSerializer
 
