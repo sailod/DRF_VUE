@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:18
 
 # For dev debugging purposes
 # apt update && apt install net-tools
@@ -12,6 +12,7 @@ COPY package*.json ./
 RUN npm install
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
+# * please notice that its not needed if we work with dev container, as the source are mounted from the host
 COPY . .
 
 # build app for production with minification
