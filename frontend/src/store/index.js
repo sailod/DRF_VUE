@@ -23,11 +23,11 @@ export function createStore(router) {
         token: localStorage.getItem('token') || '',
         user: {},
         http: axios.create({
-          baseURL: process.env.VUE_APP_API_URL,
+          baseURL: import.meta.VITE_API_URL,
           timeout: 1000,
         }),
         httpWithAuth: axios.create({
-          baseURL: process.env.VUE_APP_API_URL,
+          baseURL: import.meta.VITE_API_URL,
           timeout: 1000,
         }),
       }
@@ -75,7 +75,7 @@ export function createStore(router) {
         commit('SET_LOADING', true)
         this.dispatch('logout')
         return state.http
-          .post(process.env.VUE_APP_API_URL + '/api/auth/jwt/create/', user)
+          .post('/api/auth/jwt/create/', user)
           .then((resp) => {
             console.log(this)
             const token = resp.data.access
