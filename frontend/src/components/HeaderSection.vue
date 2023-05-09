@@ -20,12 +20,12 @@ const items = computed(() => {
   const allUsersMenu = [
     {
       label: 'Home',
-      icon: 'pi pi-fw pi-file',
+      icon: 'pi pi-fw pi-home',
       to: '/',
     },
     {
       label: 'About',
-      icon: 'pi pi-fw pi-file',
+      icon: 'pi pi-fw pi-question',
       to: '/about',
     },
   ]
@@ -34,7 +34,7 @@ const items = computed(() => {
         ...allUsersMenu,
         {
           label: 'Settings',
-          icon: 'pi pi-fw pi-pencil',
+          icon: 'pi pi-fw pi-cog',
           items: [
             {
               label: 'Logout',
@@ -66,5 +66,9 @@ const items = computed(() => {
 <style>
 .p-menubar .p-menubar-root-list {
   margin-left: auto;
+}
+
+.p-menu-bar .p-submenu-list{
+  z-index: 10 !important;
 }
 </style>

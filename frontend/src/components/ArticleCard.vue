@@ -44,11 +44,10 @@
           </div>
         </div>
         <div class="row">
-          <div v-if="!already_voted" class="col">
+          <div v-if="!already_voted" class="col-3">
             <Button
               @click="commitVote('true', $event)"
               icon="pi pi-thumbs-up"
-              label="True"
               severity="primary"
               style="margin-left: 0.5em"
             />
@@ -56,14 +55,13 @@
 
           <div v-if="already_voted">Thanks For Voting</div>
 
-          <div class="col">
+          <div class="col stretch my-auto justify-content-center">
             <ProgressBar :value="percentages"></ProgressBar>
           </div>
-          <div v-if="!already_voted" class="col">
+          <div v-if="!already_voted" class="col-3">
             <Button
               @click="commitVote('false', $event)"
               icon="pi pi-thumbs-down"
-              label="False"
               severity="primary"
               style="margin-left: 0.5em"
             />

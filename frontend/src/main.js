@@ -14,6 +14,7 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { initializeApp } from 'firebase/app'
+import {  } from 'firebase/auth'
 import PrimeVue from 'primevue/config'
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -26,6 +27,7 @@ import Password from 'primevue/password'
 import Message from 'primevue/message'
 import Dropdown from 'primevue/dropdown'
 import FileUpload from 'primevue/fileupload'
+import Skeleton from 'primevue/skeleton'
 
 library.add(faTimes, faThumbsUp, faThumbsDown, faTrash)
 
@@ -46,6 +48,7 @@ app.component('Password', Password)
 app.component('Message', Message)
 app.component('Dropdown', Dropdown)
 app.component('FileUpload', FileUpload)
+app.component('Skeleton', Skeleton)
 
 // this.$http.defaults.xsrfCookieName = 'csrftoken'
 // this.$http.defaults.xsrfHeaderName = 'X-CSRFToken'
