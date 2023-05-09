@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap'
+
 import { createRouter } from './router/index'
 import { createStore } from './store/index'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -17,6 +17,15 @@ import { initializeApp } from 'firebase/app'
 import PrimeVue from 'primevue/config'
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
+import 'primeicons/primeicons.css'
+import Button from 'primevue/button'
+import Paginator from 'primevue/paginator'
+import ProgressBar from 'primevue/progressbar'
+import InputText from 'primevue/inputtext'
+import Password from 'primevue/password'
+import Message from 'primevue/message'
+import Dropdown from 'primevue/dropdown'
+import FileUpload from 'primevue/fileupload'
 
 library.add(faTimes, faThumbsUp, faThumbsDown, faTrash)
 
@@ -26,12 +35,17 @@ const app = createApp(App)
 
 app.use(store)
 app.use(router)
-// Install BootstrapVue
-app.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
-app.use(IconsPlugin)
+
 app.use(PrimeVue)
 app.component('font-awesome-icon', FontAwesomeIcon)
+app.component('Button', Button)
+app.component('Paginator', Paginator)
+app.component('ProgressBar', ProgressBar)
+app.component('InputText', InputText)
+app.component('Password', Password)
+app.component('Message', Message)
+app.component('Dropdown', Dropdown)
+app.component('FileUpload', FileUpload)
 
 // this.$http.defaults.xsrfCookieName = 'csrftoken'
 // this.$http.defaults.xsrfHeaderName = 'X-CSRFToken'

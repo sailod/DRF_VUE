@@ -1,16 +1,15 @@
 <template>
   <div class="home">
-    <b-container>
+    <div class="container text-center">
       <div v-if="articles">
-        <b-row align-h="center" row-centered>
-          <b-col cols="4" mb="2" v-for="article in articles" :key="article.id">
-            <div
-              v-if="isLoggedIn"
-              class="delete-news-btn"
-              @click="deleteArticle(article.id)"
-            >
-              <font-awesome-icon icon="trash" />
-            </div>
+        <div class="row" align-h="center" row-centered>
+          <div
+            class="col col-4 p-2"
+            mb="2"
+            v-for="article in articles"
+            :key="article.id"
+          >
+
             <ArticleCard
               :title="article.title"
               percentages_prop="50"
@@ -19,21 +18,23 @@
               :content="article.content"
               :id="article.id"
             ></ArticleCard>
-          </b-col>
-        </b-row>
+          </div>
+        </div>
       </div>
-      <b-pagination
-        class="pagination-buttons"
-        align="center"
-        v-model="currentPage"
-        :total-rows="articlesCount"
-        :per-page="perPage"
-        first-text="First"
-        prev-text="Prev"
-        next-text="Next"
-        last-text="Last"
-      ></b-pagination>
-    </b-container>
+      <div>
+        <Paginator
+          :rows="10"
+          :totalRecords="articlesCount"
+          :rowsPerPageOptions="[this.perPage]"
+          @page="
+            ({ page }) => {
+              this.currentPage = page + 1
+              this.getArticles()
+            }
+          "
+        ></Paginator>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -55,14 +56,6 @@ export default {
       articlesCount: 0,
     }
   },
-  watch: {
-    currentPage: {
-      handler() {
-        this.getArticles()
-      },
-      deep: true,
-    },
-  },
   computed: {
     ...mapState(['http', 'httpWithAuth']),
     ...mapGetters(['isLoggedIn']),
@@ -75,13 +68,10 @@ export default {
       this.http
         .get(this.articlesApiUrl)
         .then((response) => {
-          this.articles = response.data
-          const obj = {}
-
-          for (const key of response.data.results) {
-            obj[key.id] = key
-          }
-          this.articles = obj
+          this.articles = response.data.results.reduce(
+            (all, article) => ({ ...all, [article.id]: article }),
+            {}
+          )
           this.articlesCount = response.data.count
         })
         .catch((error) => {
@@ -89,24 +79,7 @@ export default {
         })
         .finally(() => (this.loading = false))
     },
-    deleteArticle(articleId) {
-      this.httpWithAuth
-        .delete(`/api/news/${articleId}`, {
-          withCredentials: true,
-        })
-        .then((response) => {
-          this.getArticles()
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-        .finally(() => (self.loading = false))
-    },
   },
 }
 </script>
-<style lang="scss" scoped>
-// b-card {
-// padding: 10px;
-// }
-</style>
+<style lang="scss" scoped></style>

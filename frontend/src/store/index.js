@@ -23,11 +23,11 @@ export function createStore(router) {
         token: localStorage.getItem('token') || '',
         user: {},
         http: axios.create({
-          baseURL: import.meta.VITE_API_URL,
+          baseURL: import.meta.env.VITE_API_URL,
           timeout: 1000,
         }),
         httpWithAuth: axios.create({
-          baseURL: import.meta.VITE_API_URL,
+          baseURL: import.meta.env.VITE_API_URL,
           timeout: 1000,
         }),
       }
@@ -54,6 +54,7 @@ export function createStore(router) {
         return signInWithPopup(getAuth(this.$google), provider)
           .then(async (result) => {
             // The signed-in user info.
+            debugger
             const user = result.user
             const token = await user.getIdToken(true)
             this.commit('SET_TOKEN', token, user.email)

@@ -1,85 +1,86 @@
 <template>
   <div>
-    <b-card
-      :title="title"
-      footer-tag="footer"
-      img-src="https://picsum.photos/600/300/?image=25"
-      img-alt="Image"
-      img-top
-      tag="article"
-      style="max-width: 21rem"
-      class="mb-4"
-    >
-      <div class="mb-2">
-        <b-card-text>
-          {{ content }}
-        </b-card-text>
-      </div>
-      <b-row class="mb-2" id="article-button-row" align-v="end">
-        <b-col>
-          <b-link :href="proof"
-            ><b-button block v-b-tooltip.hover title="Proof" variant="primary">
-              Proof</b-button
-            ></b-link
-          ></b-col
-        >
-        <b-col>
-          <b-button block v-b-tooltip.hover title="Source" variant="primary">
-            <b-link :href="source">Source</b-link></b-button
+    <Card>
+      <template #header>
+        <div style="position: relative">
+          <img
+            alt="Article Header"
+            src="https://picsum.photos/600/300/?image=25"
+            style="max-width: 100%"
+          />
+          <div
+            v-if="this.isLoggedIn"
+            class="delete-news-btn"
+            @click="deleteArticle(this.id)"
           >
-        </b-col>
-      </b-row>
-      <template>
-        <b-row>
-          <b-col v-if="!already_voted" class="col">
-            <b-button
-              v-on:click="commitVote('true', $event)"
-              block
-              v-b-tooltip.hover
-              title="True"
-              variant="primary"
-            >
-              <font-awesome-icon icon="thumbs-up"
-            /></b-button>
-          </b-col>
+            <Button style="background-color: transparent; border: none"
+              ><i class="pi pi-trash" style="font-size: 1rem; color: red"></i>
+            </Button>
+          </div>
+        </div>
+      </template>
+      <template #title> {{ title }} </template>
+      <template #content>
+        <p>
+          {{ content }}
+        </p>
+      </template>
+      <template #footer>
+        <div class="row">
+          <div class="col">
+            <a :href="proof">
+              <Button icon="pi pi-check" label="Proof" />
+            </a>
+          </div>
+          <div class="col">
+            <a :href="source">
+              <Button
+                icon="pi pi-times"
+                label="Source"
+                severity="secondary"
+                style="margin-left: 0.5em"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div v-if="!already_voted" class="col">
+            <Button
+              @click="commitVote('true', $event)"
+              icon="pi pi-thumbs-up"
+              label="True"
+              severity="primary"
+              style="margin-left: 0.5em"
+            />
+          </div>
 
           <div v-if="already_voted">Thanks For Voting</div>
 
-          <b-col class="col">
-            <b-tooltip
-              :target="tooltipId"
-              :title="'' + percentages"
-            ></b-tooltip>
-            <b-progress class="mt-2" show-value animated>
-              <b-progress-bar
-                v-if="tooltipId"
-                :id="tooltipId"
-                :value="percentages"
-                variant="success"
-              ></b-progress-bar>
-            </b-progress>
-          </b-col>
-          <b-col v-if="!already_voted" class="col">
-            <b-button
-              v-on:click="commitVote('false', $event)"
-              block
-              v-b-tooltip.hover
-              title="False"
-              variant="primary"
-            >
-              <font-awesome-icon icon="thumbs-down" />
-            </b-button>
-          </b-col>
-        </b-row>
+          <div class="col">
+            <ProgressBar :value="percentages"></ProgressBar>
+          </div>
+          <div v-if="!already_voted" class="col">
+            <Button
+              @click="commitVote('false', $event)"
+              icon="pi pi-thumbs-down"
+              label="False"
+              severity="primary"
+              style="margin-left: 0.5em"
+            />
+          </div>
+        </div>
       </template>
-    </b-card>
+    </Card>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
+import Card from 'primevue/card'
+
 export default {
   props: ['title', 'content', 'id', 'percentages_prop', 'source', 'proof'],
+  components: { Card },
   data() {
     return {
       percentages: 0,
@@ -90,7 +91,8 @@ export default {
     this.fetchVotes()
   },
   computed: {
-    ...mapState(['http', 'httpWithAuth', 'isLoggedIn']),
+    ...mapState(['http', 'httpWithAuth']),
+    ...mapGetters(['isLoggedIn']),
     tooltipId: function () {
       return 'progress-bar-' + this.id
     },
@@ -120,6 +122,19 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+    },
+    deleteArticle(articleId) {
+      this.httpWithAuth
+        .delete(`/api/news/${articleId}`, {
+          withCredentials: true,
+        })
+        .then((response) => {
+          this.getArticles()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+        .finally(() => (self.loading = false))
     },
   },
 }

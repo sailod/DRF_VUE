@@ -1,69 +1,84 @@
 <template>
   <div>
-    <b-container>
-      <b-row align-h="center" align-v="center">
-        <b-col lg="4" col-centered>
-          <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-            <b-form-group
-              id="input-group-1"
-              label="Title:"
-              label-for="input-1"
-              description="Keep it short and Kolea"
-            >
-              <b-form-input
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-lg-4">
+          <form
+            @submit.prevent="onSubmit"
+            @reset.prevent="onReset"
+            v-if="show"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <label for="input-1">Title:</label>
+              <InputText
                 id="input-1"
+                class="form-control"
                 v-model="form.title"
-                type="text"
                 required
                 placeholder="Enter Title"
-              ></b-form-input>
-            </b-form-group>
+              ></InputText>
+              <small class="form-text text-muted"
+                >Keep it short and simple</small
+              >
+            </div>
 
-            <b-form-group
-              id="input-group-2"
-              label="Content:"
-              label-for="input-2"
-            >
-              <b-form-input
+            <div class="form-group">
+              <label for="input-2">Content:</label>
+              <InputText
                 id="input-2"
+                class="form-control"
                 v-model="form.content"
                 required
                 placeholder="Enter Content"
-              ></b-form-input>
-            </b-form-group>
+              ></InputText>
+            </div>
 
-            <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-              <b-form-select
+            <div class="form-group">
+              <label for="input-3">Severity:</label>
+              <Dropdown
                 id="input-3"
+                class="form-control"
                 v-model="form.severity"
                 :options="severities"
                 required
-              ></b-form-select>
-            </b-form-group>
+              ></Dropdown>
+            </div>
 
-            <b-form-group
-              id="input-group-4"
-              label="Severity:"
-              label-for="input-4"
-            >
-              <b-form-file
+            <div class="form-group">
+              <label for="input-4">Image:</label>
+              <FileUpload
                 id="input-4"
-                v-model="form.file"
-                :state="Boolean(form.file)"
-                placeholder="Choose a file or drop it here..."
-                drop-placeholder="Drop file here..."
-              ></b-form-file>
-              <div class="mt-3">
-                Selected file: {{ form.file ? form.file.name : '' }}
-              </div>
-            </b-form-group>
+                class="custom-file-input"
+                :auto="false"
+                :showUploadButton="false"
+                :showCancelButton="false"
+                :chooseLabel="'Choose a file or drop it here...'"
+                :uploadLabel="'Upload'"
+                :cancelLabel="'Cancel'"
+                :maxFileSize="1000000"
+                @select="
+                  (file) => {
+                    this.form.file = file.files[0]
+                  }
+                "
+              >
+              </FileUpload>
+              <label class="custom-file-label" for="input-4">
+                {{
+                  form.file
+                    ? form.file.name
+                    : 'Choose a file or drop it here...'
+                }}
+              </label>
+            </div>
 
-            <b-button type="submit" variant="primary">Submit</b-button>
-            <b-button type="reset" variant="danger">Reset</b-button>
-          </b-form>
-        </b-col>
-      </b-row>
-    </b-container>
+            <Button type="submit" class="btn btn-primary">Submit</Button>
+            <Button type="reset" class="p-button p-button-danger">Reset</Button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -77,15 +92,9 @@ export default {
         content: '',
         severity: null,
         file: null,
-        file2: null,
         error: null,
       },
-      severities: [
-        { text: 'Select One', value: null },
-        'Low',
-        'Medium',
-        'High',
-      ],
+      severities: ['Low', 'Medium', 'High'],
       show: true,
     }
   },
