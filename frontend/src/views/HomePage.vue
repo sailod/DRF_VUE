@@ -1,85 +1,29 @@
 <template>
   <div class="home">
     <div class="container text-center">
-      <div v-if="articles">
-        <div class="row" align-h="center" row-centered>
-          <div
-            class="col col-4 p-2"
-            mb="2"
-            v-for="article in articles"
-            :key="article.id"
-          >
-
-            <ArticleCard
-              :title="article.title"
-              percentages_prop="50"
-              :proof="article.proof"
-              :source="article.source"
-              :content="article.content"
-              :id="article.id"
-            ></ArticleCard>
+      <Suspense>
+        <template #default>
+          <ArticleGrid />
+        </template>
+        <template #fallback>
+          <div class="row" align-h="center" row-centered>
+            <div class="col col-4 p-2" v-for="index in 9">
+              <Skeleton width="100%" height="30em" class="m-2"></Skeleton>
+            </div>
           </div>
-        </div>
-      </div>
-      <div>
-        <Paginator
-          :rows="10"
-          :totalRecords="articlesCount"
-          :rowsPerPageOptions="[this.perPage]"
-          @page="
-            ({ page }) => {
-              this.currentPage = page + 1
-              this.getArticles()
-            }
-          "
-        ></Paginator>
-      </div>
+        </template>
+      </Suspense>
     </div>
   </div>
 </template>
 <script>
 // @ is an alias to /src
-import ArticleCard from '@/components/ArticleCard.vue'
-import { mapGetters, mapState } from 'vuex'
+import ArticleGrid from '@/components/ArticleGrid.vue'
+import { Suspense } from 'vue'
+
 export default {
   name: 'HomePage',
-  components: { ArticleCard },
-  mounted() {
-    this.getArticles()
-  },
-  data() {
-    return {
-      loading: true,
-      currentPage: 1,
-      perPage: 9,
-      articles: {},
-      articlesCount: 0,
-    }
-  },
-  computed: {
-    ...mapState(['http', 'httpWithAuth']),
-    ...mapGetters(['isLoggedIn']),
-    articlesApiUrl() {
-      return '/api/news/?page='.concat(this.currentPage)
-    },
-  },
-  methods: {
-    getArticles() {
-      this.http
-        .get(this.articlesApiUrl)
-        .then((response) => {
-          this.articles = response.data.results.reduce(
-            (all, article) => ({ ...all, [article.id]: article }),
-            {}
-          )
-          this.articlesCount = response.data.count
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-        .finally(() => (this.loading = false))
-    },
-  },
+  components: { ArticleGrid, Suspense },
 }
 </script>
 <style lang="scss" scoped></style>
