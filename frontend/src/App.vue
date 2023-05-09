@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <HeaderSection></HeaderSection>
-    <router-view/>
+    <router-view />
     <FooterSection></FooterSection>
   </div>
 </template>
@@ -9,16 +9,31 @@
 <script>
 import HeaderSection from '@/components/HeaderSection.vue'
 import FooterSection from '@/components/FooterSection.vue'
-
+import { onIdTokenChanged } from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
+import { mapMutations } from 'vuex'
 export default {
   name: 'app',
   components: { HeaderSection, FooterSection },
+  methods: {
+    ...mapMutations(['SET_TOKEN']),
+  },
+  mounted() {
+    onIdTokenChanged(getAuth(this.$google), (user) => {
+      if (user) {
+        user.getIdToken().then((token) => {
+          this.SET_TOKEN(token, user.emm)
+        })
+      } else {
+        // User is signed out
+      }
+    })
+  },
 }
 </script>
 
 <style lang="scss">
-@import "styles/_variables.scss";
-
+@import 'styles/_variables.scss';
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -27,7 +42,6 @@ export default {
   color: #2c3e50;
 
   color: $primary;
-
 }
 
 .navbar {
@@ -44,16 +58,16 @@ export default {
   color: $tertiary;
 }
 
-.btn.btn-primary.btn-block{
+.btn.btn-primary.btn-block {
   background-color: $secondary;
   border-color: $secondary;
 }
 
-.delete-news-btn{
+.delete-news-btn {
   z-index: 1;
   position: absolute;
   top: 1%;
-  right: 6%;
+  right: 0%;
   color: red;
 }
 
@@ -84,28 +98,27 @@ export default {
   background-color: #ddd;
 }
 button a:hover {
-    text-decoration: none;
-    color:white ;
-
+  text-decoration: none;
+  color: white;
 }
-button a{
-    color:white ;
+button a {
+  color: white;
 }
 
-article.card{
-  height:518px;
+article.card {
+  height: 518px;
 }
 
 // .card-text {
 //   min-height: 200px;
 // }
-.card-img-top{
+.card-img-top {
   height: 100px;
 }
 .card-title {
-height: 80px;
+  height: 80px;
 }
-div .card-text{
+div .card-text {
   height: 190px;
 }
 </style>
