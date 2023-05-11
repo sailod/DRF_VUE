@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { createStore as _createStore } from 'vuex'
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
 
 const provider = new GoogleAuthProvider({
   apiKey: 'AIzaSyCCJeE9feN0TxnrIBld9A29WqOtDjoP3Ck',
@@ -47,6 +47,13 @@ export function createStore(router) {
         state.loading = false
         state.token = ''
         delete state.httpWithAuth.defaults.headers.common.Authorization
+        localStorage.setItem('token', '')
+        signOut(getAuth(this.$google)).then(() => {
+          console.log("successfully signed out")
+        }).catch((error) => {
+          console.error("failed signed out")
+        });
+        
       },
     },
     actions: {
@@ -54,7 +61,6 @@ export function createStore(router) {
         return signInWithPopup(getAuth(this.$google), provider)
           .then(async (result) => {
             // The signed-in user info.
-            debugger
             const user = result.user
             const token = await user.getIdToken(true)
             this.commit('SET_TOKEN', token, user.email)
