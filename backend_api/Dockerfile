@@ -18,4 +18,7 @@ COPY . ./
 
 # RUN python backend_api/manage.py collectstatic --noinput
 ENTRYPOINT ["./wrapper_script.sh"]
+
+# This line for debug purposes
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
 EXPOSE 8181

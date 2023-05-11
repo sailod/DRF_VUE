@@ -18,9 +18,10 @@ while sleep 10; do
   ps aux |grep gunicorn |grep -q -v grep
   PROCESS_2_STATUS=$?
   # If the greps above find anything, they exit with 0 status
-  # If they are not both 0, then something is wrong
+  # If they are not both 0, then something is wrong,
+  # both of the services need to run in order to serve the Django app 
   if [ $PROCESS_1_STATUS -ne 0 -o $PROCESS_2_STATUS -ne 0 ]; then
-    echo "One of the processes has already exited."
+    echo "One of the processes has exited. killing container."
     exit 1
   fi
 done
