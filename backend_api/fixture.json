@@ -88,5 +88,95 @@
             "content": "Is animal testing necessary for scientific research, or is it cruel and unnecessary?",
             "author": 1
         }
+    },
+    {
+        "pk": 11,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is time travel possible?",
+            "content": "Is it possible to travel through time, or is it just science fiction?",
+            "author": 4
+        }
+    },
+    {
+        "pk": 12,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Should genetic cloning be legal?",
+            "content": "Should people be allowed to clone themselves or others, or is it unethical?",
+            "author": 4
+        }
+    },
+    {
+        "pk": 13,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is the multiverse real?",
+            "content": "Does the multiverse theory have scientific merit, or is it just speculation?",
+            "author": 4
+        }
+    },
+    {
+        "pk": 14,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is cryptocurrency the future of money?",
+            "content": "Is cryptocurrency a viable alternative to traditional forms of currency, or is it too risky?",
+            "author": 4
+        }
+    },
+    {
+        "pk": 15,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Should assisted suicide be legalized?",
+            "content": "Should people have the right to choose when and how they die, or is it morally wrong?",
+            "author": 4
+        }
+    },
+    {
+        "pk": 16,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is nuclear power safe?",
+            "content": "Is nuclear power a safe and efficient source of energy, or is it too dangerous?",
+            "author": 4
+        }
+    },
+    {
+        "pk": 17,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Should the government regulate social media?",
+            "content": "Should the government have a role in regulating the content and behavior on social media platforms, or is it a violation of free speech?",
+            "author": 4
+        }
+    },
+    {
+        "pk": 18,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is globalization good for the world?",
+            "content": "Does globalization lead to economic growth and development, or does it cause inequality and exploitation?",
+            "author": 4
+        }
+    },
+    {
+        "pk": 19,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Should the use of animals in entertainment be banned?",
+            "content": "Should animals be used for entertainment purposes, such as circuses and zoos, or is it unethical?",
+            "author": 4
+        }
+    },
+    {
+        "pk": 20,
+        "model": "fake_or_real.news",
+        "fields": {
+            "title": "Is renewable energy the solution to climate change?",
+            "content": "Can renewable energy sources, such as wind and solar, replace fossil fuels and mitigate climate change, or is it not feasible?",
+            "author": 4
+        }
     }
 ]
