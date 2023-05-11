@@ -28,6 +28,9 @@ import Message from 'primevue/message'
 import Dropdown from 'primevue/dropdown'
 import FileUpload from 'primevue/fileupload'
 import Skeleton from 'primevue/skeleton'
+import Toast from 'primevue/toast';
+import ToastService from 'primevue/toastservice';
+import MasonryWall from '@yeger/vue-masonry-wall'
 
 library.add(faTimes, faThumbsUp, faThumbsDown, faTrash)
 
@@ -38,7 +41,10 @@ const app = createApp(App)
 app.use(store)
 app.use(router)
 
+app.use(ToastService)
 app.use(PrimeVue)
+app.use(MasonryWall)
+
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('Button', Button)
 app.component('Paginator', Paginator)
@@ -49,9 +55,8 @@ app.component('Message', Message)
 app.component('Dropdown', Dropdown)
 app.component('FileUpload', FileUpload)
 app.component('Skeleton', Skeleton)
+app.component('Toast', Toast)
 
-// this.$http.defaults.xsrfCookieName = 'csrftoken'
-// this.$http.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 /* code from our Firebase console */
 const firebaseConfig = {

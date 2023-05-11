@@ -127,7 +127,7 @@ export default {
           withCredentials: true,
         })
         .then((response) => {
-          this.getArticles()
+          this.$emit('articleDeleted')
         })
         .catch((error) => {
           console.log(error)

@@ -68,7 +68,7 @@ const items = computed(() => {
   margin-left: auto;
 }
 
-.p-menu-bar .p-submenu-list{
+.p-submenu-list{
   z-index: 10 !important;
 }
 </style>

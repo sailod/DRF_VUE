@@ -84,6 +84,8 @@
 
 <script>
 import { mapState } from 'vuex'
+import { useToast } from "primevue/usetoast";
+
 export default {
   data() {
     return {
@@ -110,8 +112,10 @@ export default {
       this.httpWithAuth
         .post('/api/news/create/', formData)
         .then(() => {
-          console.log('SUCCESS!!')
+          // const toast = useToast();
           this.$router.push({ path: '/' })
+          this.$toast.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
+
         })
         .catch(function (err) {
           console.log(err)
