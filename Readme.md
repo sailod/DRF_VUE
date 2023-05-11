@@ -2,8 +2,7 @@
 
 This repository can be used as boilerplate for fullstack application written in VueJS and Django,  
 This application has example of all CRUD operations, Authentication (using username/password or firebase),  
-Authorization (any object can be edited only by its creator), and IP based protection to limit each user for only one vote per subject
-Pagination
+Authorization (any object can be edited only by its creator), and IP based protection to limit each user for only one vote per subject, Pagination
 
 This repo includes the best practices for running both the frontend and backend in production,
 its running the API (Django Rest Framework) using Gunicorn and use Nginx as proxy to the wsgi and serving media and static files like stylesheets 
@@ -13,7 +12,6 @@ This platform works as follow:
 2. once you published poll everybody that logged in can vote for it but just single time (enforced via IP detection)
 3. only the publisher of the poll can delete it
 ## Run the app
-in case you want to use preconfigured DB with data:  
 ```
 docker compose up
 ```
