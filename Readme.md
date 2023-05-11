@@ -12,26 +12,9 @@ This platform works as follow:
 1. in order to create new poll you need to register and be logged in
 2. once you published poll everybody that logged in can vote for it but just single time (enforced via IP detection)
 3. only the publisher of the poll can delete it
-## Django Administrator User
+## Run the app
 in case you want to use preconfigured DB with data:  
 ```
-git show 402f023b14e9177d238811a6308824ce61fee182:backend_api/db.sqlite3 > backend_api/db.sqlite3
+docker compose up
 ```
-username: admin  
-password: x5t47pYj
-
-## Build Commands
-```
-sudo docker build -t vuejs-with-deps -f DockerfileVueJS .
-sudo docker build -t django-with-deps -f DockerfileDjango .
-```
-## Run Commands
-```
-sudo docker run -it --mount type=bind,source="$(pwd)",target=/app -p 8080:8080 -d vuejs-with-deps tail -f /dev/null
-sudo docker run -it --mount type=bind,source="$(pwd)",target=/app -p 8000:80 -d django-with-deps
-```
-### if application code mounted instead of copied to container, run:
-```
-python backend_api/manage.py collectstatic --noinput
-```
-### otherwise just uncomment this line in DockerfileDjango
+[drf_vue_compressed.webm](https://github.com/sailod/DRF_VUE/assets/39811986/3a58c86e-e328-4f86-bd8e-4182c9d18db4)
