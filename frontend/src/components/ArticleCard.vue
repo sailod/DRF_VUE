@@ -75,6 +75,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import Card from 'primevue/card'
+import axios from 'axios'
 
 export default {
   props: ['title', 'content', 'id', 'percentages_prop', 'source', 'proof'],
@@ -97,29 +98,81 @@ export default {
   },
   methods: {
     commitVote(vote) {
-      this.httpWithAuth
-        .post('/api/news-vote/', { choice: vote, news: this.id }, {})
+      axios
+        .put(
+          `https://vault.immudb.io/ics/api/v1/ledger/default/collection/default/document`,
+          { choice: vote, news: this.id },
+          {
+            headers: {
+              'X-API-Key':
+                'default.LVodxizqRZkbuWlXyFSaWA.p8OgfRID80Zcg-7bP54GfmeS3vmBfXiCLSTbhv8d7zsIDghJ',
+            },
+          },
+        )
         .then((response) => {
+          if (this.content == 'wefw') debugger
           this.already_voted = 1
           this.fetchVotes()
         })
         .catch((error) => {
+          if (this.content == 'wefw') debugger
           console.log(error)
         })
     },
-    fetchVotes() {
-      this.http
-        .get(`/api/news-vote/${this.id}/`)
-        .then((response) => {
-          // console.log(response.data)
-          this.already_voted = response.data.already_voted
-          this.percentages =
-            (response.data.true / (response.data.false + response.data.true)) *
-            100
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+    async fetchVotes() {
+      if (this.content == 'wefw') debugger
+
+      try {
+        const trueVotes = await axios.post(
+          'https://vault.immudb.io/ics/api/v1/ledger/default/collection/default/documents/count',
+          {
+            query: {
+              expressions: [
+                {
+                  fieldComparisons: [
+                    { field: 'news', operator: 'EQ', value: this.id },
+                    { field: 'choice', operator: 'EQ', value: true },
+                  ],
+                },
+              ],
+            },
+          },
+          {
+            headers: {
+              'X-API-Key':
+                'default.LVodxizqRZkbuWlXyFSaWA.p8OgfRID80Zcg-7bP54GfmeS3vmBfXiCLSTbhv8d7zsIDghJ',
+            },
+          },
+        )
+        const falseVotes = await axios.post(
+          'https://vault.immudb.io/ics/api/v1/ledger/default/collection/default/documents/count',
+          {
+            query: {
+              expressions: [
+                {
+                  fieldComparisons: [
+                    { field: 'id', operator: 'EQ', value: this.id },
+                    { field: 'choice', operator: 'EQ', value: 'false' },
+                  ],
+                },
+              ],
+            },
+          },
+          {
+            headers: {
+              'X-API-Key':
+                'default.LVodxizqRZkbuWlXyFSaWA.p8OgfRID80Zcg-7bP54GfmeS3vmBfXiCLSTbhv8d7zsIDghJ',
+            },
+          },
+        )
+        // console.log(response.data)
+        this.already_voted = response.data.already_voted
+        this.percentages =
+          (response.data.true / (response.data.false + response.data.true)) *
+          100
+      } catch (e) {
+        console.log(`failed to fetch votes: ${e}`)
+      }
     },
     deleteArticle(articleId) {
       this.httpWithAuth
