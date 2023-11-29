@@ -1,6 +1,6 @@
 # Voting system made with Django Rest Framework and Vue.js
 
-This repository can be used as boilerplate for fullstack application written in VueJS and Django,  
+This repository is a monorepo for fullstack application written in VueJS and Django,  
 This application has example of all CRUD operations, Authentication (using username/password or firebase),  
 Authorization (any object can be edited only by its creator), and IP based protection to limit each user for only one vote per subject, Pagination
 
