@@ -10,7 +10,7 @@ django-rest-framework==0.1.0
 djangorestframework==3.11.0
 djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt
-idna==2.9
+idna==3.7
 oauthlib==3.1.0
 Pillow==7.0.0
 PyJWT
