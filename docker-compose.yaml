@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   frontend:
     build: ./frontend
@@ -7,16 +5,16 @@ services:
       - '8085:8085'
     depends_on:
       - backend
-    # environment:
-    #   - VITE_API_URL=http://localhost:8181/api
+    environment:
+      - VITE_API_URL=http://localhost:8181/
     volumes:
-          - .:/workspace
+          - ./frontend:/app
   backend:
     build: ./backend_api
     ports:
       - '8181:8181'
     volumes:
-          - .:/workspace
+          - ./backend_api:/app
     environment:
       - DB_NAME=postgres
       - DB_USER=postgres
