@@ -22,7 +22,7 @@ export default {
     onIdTokenChanged(getAuth(this.$google), (user) => {
       if (user) {
         user.getIdToken().then((token) => {
-          this.SET_TOKEN(token, user.emm)
+          this.SET_TOKEN({token, email: user.email})
         })
       } else {
         // User is signed out

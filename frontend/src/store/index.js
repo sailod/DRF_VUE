@@ -24,19 +24,20 @@ export function createStore(router) {
         user: {},
         http: axios.create({
           baseURL: import.meta.env.VITE_API_URL,
-          timeout: 1000,
+          timeout: 5000,
         }),
         httpWithAuth: axios.create({
           baseURL: import.meta.env.VITE_API_URL,
-          timeout: 1000,
+          timeout: 5000,
         }),
       }
     },
     mutations: {
-      SET_TOKEN(state, token, email) {
+      SET_TOKEN(state, { token, email }) {
         state.status = 'success'
         state.token = token
         state.user.email = email
+
         localStorage.setItem('token', token)
         state.httpWithAuth.defaults.headers.common.Authorization = `JWT ${token}`
       },
@@ -53,7 +54,7 @@ export function createStore(router) {
         }).catch((error) => {
           console.error("failed signed out")
         });
-        
+
       },
     },
     actions: {
@@ -63,7 +64,7 @@ export function createStore(router) {
             // The signed-in user info.
             const user = result.user
             const token = await user.getIdToken(true)
-            this.commit('SET_TOKEN', token, user.email)
+            this.commit('SET_TOKEN', { token, email: user.email })
           })
           .catch((error) => {
             // Handle Errors here.
@@ -88,7 +89,7 @@ export function createStore(router) {
             const token = resp.data.access
             const user = resp.config.data.username
             commit('SET_LOADING', false)
-            commit('SET_TOKEN', token, user)
+            commit('SET_TOKEN', { token, email: user })
           })
           .catch((err) => {
             throw err
@@ -96,9 +97,18 @@ export function createStore(router) {
             // this.dispatch('logout')
           })
       },
-      logout({ commit }) {
+      setTokenOnWeb3Auth({ commit, getters, state }, { address, token }) {
+        if (address && token) {
+          const user = address
+          commit('SET_TOKEN', { token, email: user })
+        } else {
+          throw new Error('Address or token is missing')
+        }
+      },
+      logout({ commit, state }) {
         commit('LOGOUT')
         localStorage.removeItem('token')
+        state.user.email = ''
       },
     },
     getters: {

@@ -8,7 +8,7 @@ import logging
 
 """SETUP FIREBASE CREDENTIALS"""
 
-cred = credentials.Certificate("firebase_key.json")
+cred = credentials.Certificate("drf-vue-firebase-adminsdk-zy1gs-62cb1e0fd1.json")
 default_app = firebase_admin.initialize_app(cred)
 
 

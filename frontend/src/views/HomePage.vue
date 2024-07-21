@@ -1,6 +1,8 @@
+<!-- Start of Selection -->
 <template>
   <div class="home">
     <div class="container text-center">
+      <h1>Hello {{ state.user.email }}</h1>
       <Suspense>
         <template #default>
           <ArticleGrid />
@@ -20,10 +22,20 @@
 // @ is an alias to /src
 import ArticleGrid from '@/components/ArticleGrid.vue'
 import { Suspense } from 'vue'
+import { mapState } from 'vuex'
+import { useStore } from 'vuex'
+
+const store = useStore()
 
 export default {
   name: 'HomePage',
   components: { ArticleGrid, Suspense },
+  computed: {
+    ...mapState({
+      state: state => state
+    })
+  }
 }
 </script>
 <style lang="scss" scoped></style>
+<!-- End of Selection -->

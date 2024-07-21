@@ -14,7 +14,7 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { initializeApp } from 'firebase/app'
-import {  } from 'firebase/auth'
+import { } from 'firebase/auth'
 import PrimeVue from 'primevue/config'
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -31,6 +31,9 @@ import Skeleton from 'primevue/skeleton'
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import MasonryWall from '@yeger/vue-masonry-wall'
+import { WagmiPlugin } from '@wagmi/vue'
+import { config } from './wagmi'
+import { QueryClient, VueQueryPlugin } from '@tanstack/vue-query'
 
 library.add(faTimes, faThumbsUp, faThumbsDown, faTrash)
 
@@ -40,6 +43,11 @@ const app = createApp(App)
 
 app.use(store)
 app.use(router)
+
+// web3 auth dependencies using wagmi
+app.use(WagmiPlugin, { config, reconnectOnMount: false })
+const queryClient = new QueryClient()
+app.use(VueQueryPlugin, { queryClient })
 
 app.use(ToastService)
 app.use(PrimeVue)
@@ -60,13 +68,7 @@ app.component('Toast', Toast)
 
 /* code from our Firebase console */
 const firebaseConfig = {
-  apiKey: 'AIzaSyCCJeE9feN0TxnrIBld9A29WqOtDjoP3Ck',
-  authDomain: 'test-a9062.firebaseapp.com',
-  projectId: 'test-a9062',
-  storageBucket: 'test-a9062.appspot.com',
-  messagingSenderId: '354221965650',
-  appId: '1:354221965650:web:35e308a03a786c3220ba8b',
-  measurementId: 'G-0B73JTFGVW',
+// not included in pushed version
 }
 
 // Initialize Firebase

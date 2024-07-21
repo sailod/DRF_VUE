@@ -29,8 +29,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost"]
 
+AUTHENTICATION_BACKENDS = [
+    'fake_or_real.auth_web3.authentication_backend.Web3AuthBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Keep the default backend as fallback
+]
 
 # Application definition
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INSTALLED_APPS = [
     "django.contrib.admin",
