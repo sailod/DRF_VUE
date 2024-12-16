@@ -15,7 +15,7 @@
     "@tanstack/vue-query": "^5.51.1",
     "@wagmi/vue": "^0.0.26",
     "@yeger/vue-masonry-wall": "^3.4.4",
-    "axios": "^0.19.2",
+    "axios": "^1.7.2",
     "bootstrap": "^5.2.3",
     "core-js": "^3.6.4",
     "firebase": "^9.21.0",
